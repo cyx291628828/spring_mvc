@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="answer" catalog="daiam"
+		class="com.source.plan.entity.Answer">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="collect" catalog="daiam"
+		class="com.source.plan.entity.Collect">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="discuss" catalog="daiam"
+		class="com.source.plan.entity.Discuss">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="download" catalog="daiam"
+		class="com.source.plan.entity.Dowload">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="genre" catalog="daiam"
+		class="com.source.plan.entity.Genre">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="message" catalog="daiam"
+		class="com.source.plan.entity.Message">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="newtable" catalog="daiam"
+		class="com.source.plan.entity.Newtable">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="notice" catalog="daiam"
+		class="com.source.plan.entity.Notice">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="question" catalog="daiam"
+		class="com.source.plan.entity.Question">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+<table name="user" catalog="daiam"
+	class="com.source.plan.entity.User">
+	<primary-key>
+		<generator class="assigned"></generator>
+	</primary-key>
+</table>
+</hibernate-reverse-engineering>
