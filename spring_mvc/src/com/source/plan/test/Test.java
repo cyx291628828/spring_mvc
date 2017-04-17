@@ -25,7 +25,10 @@ public class Test {
 		
 		user.setUserId("222221222");
 		user.setUserName("加上去的名字");
-		udaoDao.delete(findAll.get(0));
+		List<User> findByExample = udaoDao.findByExample(user);
+		for(User user2 : findByExample){
+			System.out.println(user2.getUserName());
+		}
 		
 //		Session session = HibernateSessionFactory.getSession();
 //		Transaction transaction = session.beginTransaction();

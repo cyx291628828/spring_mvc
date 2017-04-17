@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebRoot/WEB-INF/jsp/hello.jsp=UTF-8
-encoding//WebRoot/test.jsp=UTF-8
+encoding//WebRoot/insdex.jsp=UTF-8
 encoding//src/com/source/plan/controller/HelloContorller.java=UTF-8
 encoding//src/com/source/plan/controller/LoginContorller.java=UTF-8
 encoding/<project>=UTF-8

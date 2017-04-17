@@ -158,7 +158,7 @@ div a:hover {
 <script type="text/javascript">
 	$(function() {
 		$(".vcode-img").click(function() {
-			$(".vcode-img").attr("src", "vcode.jpg?s=" + Math.random());
+			$(".vcode-img").attr("src", "login/vcode?s=" + Math.random());
 		});
 		$(".btn-submit").click(function() {
 			var id = $("input[name='userID']").val();
@@ -221,7 +221,7 @@ div a:hover {
 					<div class="vcode-div">
 						<input type="text" name="vcode" class="form-control vcode"
 							placeholder="请输入验证码"> <img class="vcode-img"
-							src="vcode.jpg" />
+							src="login/vcode" />
 					</div>
 				</div>
 				<div style="height:20px">

@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
   
   <body>
-    <jsp:include page="nav/_UserHead.jsp" />
+    <jsp:include page="<%=basePath %>nav/_UserHead.jsp" />
     <div class="err404" style="width: auto;height: auto;margin-left: 550px; margin-top: 200px;padding-bottom: 200px;">
     	<a href="index.jsp"><img alt="" src="img/404.png"></a>
     </div>

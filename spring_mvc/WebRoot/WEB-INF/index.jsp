@@ -350,7 +350,7 @@ h1 img {
 </head>
 
 <body>
-	<jsp:include page="/nav/_UserHead.jsp" />
+	<jsp:include page="<%=basePath %>/nav/_UserHead.jsp" />
 	
 	<script type="text/javascript">
 		//图片轮播
