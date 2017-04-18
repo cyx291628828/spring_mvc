@@ -7,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
     
     <title>您访问的页面不存在！</title>
     
@@ -20,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
   
   <body>
-    <jsp:include page="<%=basePath %>nav/_UserHead.jsp" />
+    <jsp:include page="/nav/_UserHead.jsp" />
     <div class="err404" style="width: auto;height: auto;margin-left: 550px; margin-top: 200px;padding-bottom: 200px;">
     	<a href="index.jsp"><img alt="" src="img/404.png"></a>
     </div>

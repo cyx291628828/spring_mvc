@@ -8,6 +8,19 @@ import java.util.Set;
 public class Question extends AbstractQuestion implements java.io.Serializable {
 
 	// Constructors
+	/**
+	 * 添加的字段
+	 */
+	int questionAnwserQuantity = 0;//该问题的回答数
+	
+
+	public int getQuestionAnwserQuantity() {
+		return questionAnwserQuantity;
+	}
+
+	public void setQuestionAnwserQuantity(int questionAnwserQuantity) {
+		this.questionAnwserQuantity = questionAnwserQuantity;
+	}
 
 	/** default constructor */
 	public Question() {

@@ -47,7 +47,7 @@
 			<p>
 				<a href="#">源计划源码问答网站</a> © 2016 www.cjplan.cn 版权所有
 			</p>
-			<p>249564773@qq.com<span>|</span>291628828@qq.com</p>
+			<p>联系电话：13277986699<span>|</span>联系邮箱：291628828@qq.com</p>
 			</div>
 			<div class="f-r p-1">
 				<a

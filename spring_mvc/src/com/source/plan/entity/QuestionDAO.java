@@ -104,7 +104,7 @@ public class QuestionDAO extends BaseHibernateDAO {
 				+ ", value: " + value);
 		try {
 			String queryString = "from Question as model where model."
-					+ propertyName + "= ?";
+					+ propertyName + "> ?";
 			Query queryObject = getSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
 			return queryObject.list();

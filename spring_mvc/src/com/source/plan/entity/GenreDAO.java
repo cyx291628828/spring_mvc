@@ -101,6 +101,20 @@ public class GenreDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
+	public List findByLikeProperty(String propertyName, Object value) {
+		log.debug("finding Genre instance with property: " + propertyName
+				+ ", value: " + value);
+		try {
+			String queryString = "from Genre as model where model."
+					+ propertyName + "like ?";
+			Query queryObject = getSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 
 	public List findByGenreName(Object genreName) {
 		return findByProperty(GENRE_NAME, genreName);

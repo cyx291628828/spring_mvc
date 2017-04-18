@@ -8,6 +8,10 @@ import java.util.Set;
 public class User extends AbstractUser implements java.io.Serializable {
 
 	// Constructors
+	
+	/**
+	 * 添加的字段
+	 */
 
 	/** default constructor */
 	public User() {

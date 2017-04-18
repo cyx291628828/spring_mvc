@@ -41,15 +41,15 @@
 		var quit = $(".quit-a");
 		user.click(function(){
 			if(user.text() == "登录")
-				user.attr("href","login/MyLog.jsp");
+				user.attr("href","login/MyLogin");
 			else
 				user.attr("href","user/UserInfoCenter.jsp?linknumber=-1");
 		});
 		quit.click(function(){
 			if(quit.text() == "注销")
-				quit.attr("href","logoff");
+				quit.attr("href","login/logoff");
 			else
-				quit.attr("href","login/register.jsp");
+				quit.attr("href","login/register");
 		});
 	});
 </script>

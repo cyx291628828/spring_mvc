@@ -88,8 +88,8 @@ float:left;
 	font-style: normal !important;
 }
 </style>
-<script type="text/javascript" src="src/js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="src/js/additional-methods.js"></script>
+<script type="text/javascript" src="<%=basePath %>/src/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=basePath %>/src/js/additional-methods.js"></script>
 <script type="text/javascript">
 	/*$(function() {
 		var userID = $("input[name='userID']");
@@ -276,7 +276,7 @@ float:left;
 					<button type="reset" class="btn btn-success">重置</button>
 				</div>
 				<p style="margin: 10px 20px">
-					已经注册？点此<a href="login/MyLog.jsp">登陆</a>
+					已经注册？点此<a href="login/MyLogin">登陆</a>
 				</p>
 			</form>
 		</div>

@@ -11,22 +11,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class HelloContorller {
-	
-	
-	//hello world例子
+public class IndexContorller {
+	/**
+	 * 杩涘叆涓婚〉鐨凜ontorller
+	 * @return
+	 */
 	@RequestMapping(value="/hello")
-	public String hello(){
-		System.out.println("spring mvc hello world!");
-		return "hello";
+	public String index(){
+		return "index";
 	}
 	
-	/*
-	 * 1.客户端->服务器端   get方式的参数传递-url
-	 * 2.uri的参数必须是跟对应的请求方法的参数一致(与struts不同)
-	 *   
-	 */
-	//1
+	@RequestMapping(value="/")
+	public String index1(){
+		return "index";
+	}
+	
+	@RequestMapping(value="/welcome")
+	public String index2(){
+		return "index";
+	}
+	
+	
+	
+	
 	@RequestMapping(value="/ok")
 	public String ok(@RequestParam("userid") int id){
 		System.out.println(id);
@@ -45,25 +52,24 @@ public class HelloContorller {
 		System.out.println(age);
 		return "ok";
 	}
-	/*
-	 * 服务器端->客户端 参数传递方式
-	 */
-	//1
+
+
 	@RequestMapping(value="/ok3")
 	public String ok3(Map<String, Object> map){
 		map.put("hello", "world");
 		return "ok";
 	}
-	//2-推荐使用
+
+
 	@RequestMapping(value="/ok4")
 	public String ok4(Model model){
 		model.addAttribute("hello","world");
-		model.addAttribute("world");//key为value的类型
+		model.addAttribute("world");//key为value锟斤拷锟斤拷锟斤拷
 		return "ok";
 	}
 	
 	
-	//获取req,resp
+	//锟斤拷取req,resp
 	@RequestMapping(value="req")
 	public String req(HttpServletRequest req,HttpServletResponse resp){
 		System.out.println(req.getParameter("id"));

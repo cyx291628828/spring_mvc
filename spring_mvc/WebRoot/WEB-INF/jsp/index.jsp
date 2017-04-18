@@ -350,7 +350,7 @@ h1 img {
 </head>
 
 <body>
-	<jsp:include page="<%=basePath %>/nav/_UserHead.jsp" />
+	<jsp:include page="/nav/_UserHead.jsp" />
 	
 	<script type="text/javascript">
 		//图片轮播
@@ -514,7 +514,7 @@ h1 img {
 							<img width='25px' src="<%=path2%>" class="lv"> <br>
 						</div>
 						<div style="margin-top: 10px;">
-							<label>大洋: </label> <label><img src="img/money.ico"><%=user.getUserFakeMoney()%>
+							<label>大洋: </label> <label><img src="<%=basePath%>img/money.ico"><%=user.getUserFakeMoney()%>
 							</label>
 						</div>
 						<div style="position: relative;top:5px;left:-100px;width: 280px;">
