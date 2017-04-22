@@ -12,7 +12,16 @@ public class Question extends AbstractQuestion implements java.io.Serializable {
 	 * 添加的字段
 	 */
 	int questionAnwserQuantity = 0;//该问题的回答数
+	String	string_Genre = "";
 	
+
+	public String getString_Genre() {
+		return string_Genre;
+	}
+
+	public void setString_Genre(String string_Genre) {
+		this.string_Genre = string_Genre;
+	}
 
 	public int getQuestionAnwserQuantity() {
 		return questionAnwserQuantity;

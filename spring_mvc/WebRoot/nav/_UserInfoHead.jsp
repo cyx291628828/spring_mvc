@@ -20,11 +20,11 @@
 	<div class="myBody">
 		<ul class="nav nav-pills nav-stacked">
 			<div class="btnDiv">个人中心</div>
-			<li role="presentation"><a href="user/UserInfoCenter.jsp">个人信息</a>
+			<li role="presentation"><a href="user/UserInfoCenter">个人信息</a>
 			</li>
-			<li role="presentation"><a href="user/AmendPass.jsp">修改密码</a>
+			<li role="presentation"><a href="user/intoAmendPass">修改密码</a>
 			</li>
-			<li role="presentation"><a href="UserMessageCenter">消息中心</a>
+			<li role="presentation"><a href="user/UserMessageCenter">消息中心</a>
 			</li>
 		</ul>
 	</div>

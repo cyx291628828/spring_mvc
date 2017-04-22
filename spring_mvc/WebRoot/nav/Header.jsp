@@ -43,7 +43,7 @@
 			if(user.text() == "登录")
 				user.attr("href","login/MyLogin");
 			else
-				user.attr("href","user/UserInfoCenter.jsp?linknumber=-1");
+				user.attr("href","user/UserInfoCenter?linknumber=-1");
 		});
 		quit.click(function(){
 			if(quit.text() == "注销")

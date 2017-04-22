@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class IndexContorller {
@@ -27,7 +29,13 @@ public class IndexContorller {
 	}
 	
 	@RequestMapping(value="/welcome")
-	public String index2(){
+	public String index2(RedirectAttributes att){
+		att.addFlashAttribute("yuu", "123");
+		return "redirect:/index";
+	}
+	@RequestMapping(value="/index")
+	public String index3(@ModelAttribute("yuu") String username){
+		System.out.println(username);
 		return "index";
 	}
 	
@@ -35,8 +43,8 @@ public class IndexContorller {
 	
 	
 	@RequestMapping(value="/ok")
-	public String ok(@RequestParam("userid") int id){
-		System.out.println(id);
+	public String ok(){
+		System.out.println("123");
 		return "ok";
 	}
 	//2

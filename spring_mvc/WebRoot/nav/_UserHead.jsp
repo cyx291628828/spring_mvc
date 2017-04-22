@@ -79,7 +79,7 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li <%if (s.equals("0") || s.equals("")) {%> class="active" <%}%>><a href="index.jsp?linknumber=0">主页 <span
+				<li <%if (s.equals("0") || s.equals("")) {%> class="active" <%}%>><a href="index?linknumber=0">主页 <span
 						class="sr-only">(current)</span> </a>
 				</li>
 				<li <%if (s.equals("1")) {%> class="active" <%}%>><a
@@ -115,9 +115,9 @@
 							<%}else{ %> style="width:100% ; margin-top: <%=(1-height*1.0/width)*17 %>px" <%} %>>
 					</div> <span class="badge people-hand-badge"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="user/UserInfoCenter.jsp?linknumber=-1">个人信息</a></li>
-						<li><a href="user/AmendPass.jsp?linknumber=-1">修改密码</a></li>
-						<li><a href="UserMessageCenter?linknumber=-1">消息中心<span class="badge"></span></a>
+						<li><a href="user/UserInfoCenter?linknumber=-1">个人信息</a></li>
+						<li><a href="user/intoAmendPass?linknumber=-1">修改密码</a></li>
+						<li><a href="user/UserMessageCenter?linknumber=-1">消息中心<span class="badge"></span></a>
 						</li>
 						<li role="separator" class="divider"></li>
 						<li><a href="logoff">注销</a></li>

@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,24 +24,36 @@ import com.source.plan.entity.Answer;
 import com.source.plan.entity.AnswerDAO;
 import com.source.plan.entity.Genre;
 import com.source.plan.entity.GenreDAO;
+import com.source.plan.entity.Newtable;
 import com.source.plan.entity.PageInfo;
 import com.source.plan.entity.Question;
 import com.source.plan.entity.QuestionDAO;
 
 @Controller
 public class Rewardhallcontroller {
-
+	
+	
 	int pagenum = 0;
 	private String[] genres = new String[10];
 	QuestionDAO questionDAO = new QuestionDAO();
 	AnswerDAO answerDAO = new AnswerDAO();
 	GenreDAO genreDAO = new GenreDAO();
 	PageInfo pageInfo = new PageInfo();
-	List<Question> questions_req = null;
+	List<Question> questions_req = new ArrayList<Question>();
+	public void init(){
+		pagenum = 0;
+		genres = new String[10];
+		questionDAO = new QuestionDAO();
+		answerDAO = new AnswerDAO();
+		genreDAO = new GenreDAO();
+		pageInfo = new PageInfo();
+		questions_req = new ArrayList<Question>();
+	}
 	
 	@RequestMapping(value="/RewardHall")
 	public String rewardHall(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
+		init();
 		String genreID = request.getParameter("genreID");
 		String genreType = request.getParameter("genreType")==null?"0":request.getParameter("genreType");
 		String sortRule = request.getParameter("sortRule")==null?"0":request.getParameter("sortRule");
@@ -50,14 +65,30 @@ public class Rewardhallcontroller {
 		pagenum = request.getParameter("pageNum")==null?1:Integer.parseInt(request.getParameter("pageNum"));
 		System.out.println("genreType="+genreType);
 		try{
+			switch (Integer.parseInt(genreType)) {
+			case 1:
+				type="后端开发";
+				break;
+			case 2:
+				type="前端开发";
+				break;
+			case 3:
+				type="移动开发";
+				break;
+			case 4:
+				type="其他";
+				break;
+			default:
+				break;
+			}
 			if(genreID != null && !genreID.equals("0")){
-				List<Genre> list_Genres = genreDAO.findByProperty("GenreID", genreID);
-				if(list_Genres != null){
-					genreType = list_Genres.get(0).getGenreType();
+				Genre gen_ById = genreDAO.findById(genreID);
+				if(gen_ById != null){
+					genreType = gen_ById.getGenreType();
 				}
 			}
 			System.out.println("genreType="+genreType);
-			List<Genre> list_like_genre = genreDAO.findBySQL("from Genre where GenreType like '"+ type +"'");
+			List<Genre> list_like_genre = genreDAO.findByHQL("from Genre where GenreType like '"+ type +"'");
 			pageInfo.setGenres(list_like_genre);
 			if(genreID == null || genreID.equals("0")){
 				//如果语言名称和语言分类都为空 那么自动设置为全部
@@ -68,13 +99,15 @@ public class Rewardhallcontroller {
 			}
 			pageInfo.setPageNum(pagenum);
 			request.setAttribute("pageInfo", pageInfo);
-			request.getRequestDispatcher("question/RewardHall.jsp?genreType="+genreType+"&genreID="+genreID).forward(request, response);
+			request.setAttribute("genreType", genreType);
+			request.setAttribute("genreID", genreID);
+			return "question/RewardHall";
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
-		return "login/MyLog";
+		return "index";
 	}
 	
 	
@@ -93,26 +126,13 @@ public class Rewardhallcontroller {
 		return sql;
 		
 	}
-	int getGenreType(String s){
-		int type = 0;
-		if(s.equals("前端开发")){
-			type = 2;
-		}else if(s.equals("后端开发")){
-			type = 1;
-		}else if(s.equals("移动开发")){
-			type = 3;
-		}else if(s.equals("其他")){
-			type = 4;
-		}
 
-		return type;
-	}
 	void TypeRequire(String genreType, String sortRule){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String sql = " ";
 		
 		try {
-			List<Genre> list_genre = genreDAO.findBySQL("from Genre where GenreType like '"+ genreType +"'");
+			List<Genre> list_genre = genreDAO.findByHQL("from Genre where GenreType like '"+ genreType +"'");
 			int i = 0;
 			for(Genre genres : list_genre){
 				if(i == 0){
@@ -123,24 +143,27 @@ public class Rewardhallcontroller {
 				}
 				i++;
 			}
-			List<Question> questions = questionDAO.findBySQL("from question where ( "+sql + ") and QuestionEndTime > '" + sdf.format(new Date()) +"'");
+			List<Question> questions = questionDAO.findByHQL("from Question where ( "+sql + ") and QuestionEndTime > '" + sdf.format(new Date()) +"'");
 			pageInfo.setPageSum(questions.size()%9==0?questions.size()/9:questions.size()/9+1);
 			
-		
-			List<Question> questions2 = questionDAO.findBySQL("from question where ( "+sql +") "  +" and QuestionEndTime > '" + sdf.format(new Date()) +"' "+sortRule +" limit "+(pagenum-1)*9+" ,9");
+			List<Question> questions2 = new ArrayList<Question>();
+			Query queryQuestion = questionDAO.findQueryByHQL("from Question where ( "+sql +") and QuestionEndTime > '" + sdf.format(new Date()) +"'" +sortRule);
+			queryQuestion.setFirstResult((pagenum-1)*9);
+			queryQuestion.setMaxResults(9);
+			questions2 = queryQuestion.list();
 			for(Question q : questions2){
 				String genreString = "";
-				List<Answer> answers = answerDAO.findBySQL("from answer where AnswerOfQuestion= " + q.getQuestionId());
+				List<Answer> answers = answerDAO.findByHQL("from Answer where AnswerOfQuestion= " + q.getQuestionId());
 				q.setQuestionAnwserQuantity(answers.size());
 				genres = q.getQuestionGenre().split(",");
 				for(int j = 0; j < genres.length; j++)
 				{
-					List<Genre> lists = genreDAO.findBySQL("from genre where GenreID= "+genres[j]);
+					List<Genre> lists = genreDAO.findByHQL("from Genre where GenreID= "+genres[j]);
 					genreString +=lists.get(0).getGenreName();
 					if(j < genres.length-1)
 						genreString +=",";
 				}
-				q.setQuestionGenre(genreString);
+				q.setString_Genre(genreString);
 				questions_req.add(q);
 			}
 
@@ -154,26 +177,29 @@ public class Rewardhallcontroller {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss");
 		PreparedStatement pstmt = null;
 		try {
-			List<Question> questions = questionDAO.findBySQL("from question WHERE  QuestionGenre like (%"+genreID+"%) and QuestionEndTime > '" + sdf.format(new Date()) +"'" );
+			List<Question> questions = questionDAO.findByHQL("from Question WHERE  QuestionGenre like ('%"+genreID+"%') and QuestionEndTime > '" + sdf.format(new Date()) +"'" );
 			pageInfo.setPageSum(questions.size()%9==0?questions.size()/9:questions.size()/9+1);
-			System.out.println("select * from question WHERE  QuestionGenre like ("+"%"+genreID+"%"+") and QuestionEndTime > '" + sdf.format(new Date()) +
+			System.out.println("select * from question WHERE  QuestionGenre like ('%"+genreID+"%') and QuestionEndTime > '" + sdf.format(new Date()) +
 					"'" );
-			questions = questionDAO.findBySQL("from question WHERE QuestionGenre like (?)"  + " and QuestionEndTime > '" + sdf.format(new Date()) + 
-					"'"+ sortRule+" limit "+(pagenum-1)*9+",9");
-			
-			for(Question q : questions){
+			List<Question> questions2 = new ArrayList<Question>();
+			Query queryQuestion = questionDAO.findQueryByHQL("from Question WHERE QuestionGenre like ('%"+genreID+"%')"  + " and QuestionEndTime > '" + sdf.format(new Date()) + 
+					"'"+ sortRule);
+			queryQuestion.setFirstResult((pagenum-1)*9);
+			queryQuestion.setMaxResults(9);
+			questions2 = queryQuestion.list();
+			for(Question q : questions2){
 				String genreString = "";
-				List<Answer> answers = answerDAO.findBySQL("from answer where AnswerOfQuestion= " + q.getQuestionId());
+				List<Answer> answers = answerDAO.findByHQL("from Answer where AnswerOfQuestion= " + q.getQuestionId());
 				q.setQuestionAnwserQuantity(answers.size());
 				genres = q.getQuestionGenre().split(",");
 				for(int i = 0; i < genres.length;i++)
 				{
-					List<Genre> lists = genreDAO.findBySQL("from genre where GenreID= "+genres[i]);
+					List<Genre> lists = genreDAO.findByHQL("from Genre where GenreID= "+genres[i]);
 					genreString +=lists.get(0).getGenreName();
 					if(i < genres.length-1)
 						genreString +=",";
 				}
-				q.setQuestionGenre(genreString);
+				q.setString_Genre(genreString);
 				questions_req.add(q);
 			}
 			pageInfo.setQuestions(questions);
